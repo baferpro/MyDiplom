@@ -1,0 +1,176 @@
+﻿<Window x:Class="MyDiplom.Windows.ContactPersonal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyDiplom.Windows"
+        mc:Ignorable="d"
+        Title="ContactPersonal"
+        Height="1024"
+        MinHeight="1000"
+        MaxHeight="1048"
+        Width="1440"
+        MinWidth="1400"
+        MaxWidth="1480"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12.21*"/>
+            <RowDefinition Height="87.79*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#071351"
+                Grid.Row="0">
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Margin="40, 0, 0, 0">
+                    <Image Source="../Images/icon-document.png"
+                       Width="64"
+                       Height="64"/>
+                    <Label Style="{StaticResource ForLabel}"
+                       Content="Электронный документооборот"
+                       Foreground="#FFFFFF"
+                       Margin="40, 0, 0, 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 38, 0">
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="Иванов И. И."
+                           Foreground="#FFFFFF"
+                           Margin="0, 0, 50, 0"
+                           x:Name="LBLFio"/>
+                    <Image Source="../Images/icon-user.png"
+                           Width="64"
+                           Height="64"
+                           Margin="0, 0, 50, 0"/>
+                    <Button Style="{StaticResource ForButtons}"
+                            Margin="0,0,76,0"
+                            BorderBrush="#FFFFFF"
+                            Background="{x:Null}"
+                            Padding="12, 17"
+                            x:Name="BTNExit"
+                            Click="BTNExit_Click">
+                        <Button.Content >
+                            <Label Style="{StaticResource ForLabel}"
+                                   Content="ВЫЙТИ"
+                                   Foreground="#FFFFFF"
+                                   Padding="0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Background="#D1D2DE"
+                Grid.Row="1">
+            <StackPanel Orientation="Vertical"
+                        Margin="25, 30, 25, 43">
+                <Label Style="{StaticResource ForLabel}"
+                            Content="Контакты сотрудников"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0, 32, 0, 0">
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="Поиск:"
+                           Margin="0, 0, 52, 0"/>
+                    <TextBox Style="{StaticResource ForTextBox}"
+                                    Text="ФИО"
+                                    HorizontalContentAlignment="Center"
+                                    Margin="0, 0, 61, 0"
+                                    Padding="20, 15"/>
+                    <TextBox Style="{StaticResource ForTextBox}"
+                                    Text="Должность"
+                                    HorizontalContentAlignment="Center"
+                                    Margin="0, 0, 61, 0"
+                                    Padding="20, 15"/>
+                    <TextBox Style="{StaticResource ForTextBox}"
+                                    Text="Телефон"
+                                    HorizontalContentAlignment="Center"
+                                    Margin="0, 0, 100, 0"
+                                    Padding="20, 15"/>
+                    <Button Style="{StaticResource ForButtons}"
+                                    Padding="11, 15">
+                        <Button.Content >
+                            <Label Style="{StaticResource ForLabel}"
+                                            Content="Очистить"
+                                            Foreground="#071351"
+                                            Padding="0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                <ListView Height="515"
+                          Margin="0, 37, 0, 48"
+                          Background="#E5E5E5"
+                          x:Name="LVMain"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Margin="0, 14"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border x:Name="Border"
+                                                    Width="1294"
+                                                    Height="150"
+                                                    Margin="46, 14, 0, 14"
+                                                    Background="#FFFFFF">
+                                            <ContentPresenter />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="18, 20, 0, 0">
+                                    <Label Content="{Binding FirstName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                    <Label Content=" "
+                                            Style="{StaticResource ForLabel}"/>
+                                    <Label Content="{Binding MiddleName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                    <Label Content=" "
+                                            Style="{StaticResource ForLabel}"/>
+                                    <Label Content="{Binding LastName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                </StackPanel>
+                                <Label Content="{Binding Post.Name}"
+                                        Style="{StaticResource ForLabel}"
+                                        HorizontalAlignment="Left"
+                                        Margin="20, 15, 0, 0"/>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="20, 15, 0, 18">
+                                    <Label Content="Телефон: "
+                                            Style="{StaticResource ForLabel}"/>
+                                    <Label Content="{Binding Phone}"
+                                            Style="{StaticResource ForLabel}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Style="{StaticResource ForButtons}"
+                        Padding="130, 20"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 25, 0"
+                        x:Name="BTNBack"
+                        Click="BTNBack_Click">
+                    <Button.Content >
+                        <Label Style="{StaticResource ForLabel}"
+                                            Content="Назад"
+                                            Foreground="#071351"
+                                            Padding="0"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

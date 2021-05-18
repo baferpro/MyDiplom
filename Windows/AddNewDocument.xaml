@@ -1,0 +1,244 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyDiplom.Windows"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="MyDiplom.Windows.AddNewDocument"
+        mc:Ignorable="d"
+        Title="AddNewDocument"
+        Height="1024"
+        MinHeight="1000"
+        MaxHeight="1048"
+        Width="1440"
+        MinWidth="1400"
+        MaxWidth="1480"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12.21*"/>
+            <RowDefinition Height="87.79*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#071351"
+                Grid.Row="0">
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Margin="40, 0, 0, 0">
+                    <Image Source="../Images/icon-document.png"
+                        Width="64"
+                        Height="64"/>
+                    <Label Style="{StaticResource ForLabel}"
+                        Content="Электронный документооборот"
+                        Foreground="#FFFFFF"
+                        Margin="40, 0, 0, 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 38, 0">
+                    <Label Style="{StaticResource ForLabel}"
+                            Content="Иванов И. И."
+                            Foreground="#FFFFFF"
+                            Margin="0, 0, 50, 0"
+                            x:Name="LBLFio"/>
+                    <Image Source="../Images/icon-user.png"
+                            Width="64"
+                            Height="64"
+                            Margin="0, 0, 50, 0"/>
+                    <Button Style="{StaticResource ForButtons}"
+                            Margin="0,0,76,0"
+                            BorderBrush="#FFFFFF"
+                            Background="{x:Null}"
+                            Padding="12, 17"
+                            x:Name="BTNExit"
+                            Click="BTNExit_Click">
+                        <Label Style="{StaticResource ForLabel}"
+                                    Content="ВЫЙТИ"
+                                    Foreground="#FFFFFF"
+                                    Padding="0"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Background="#D1D2DE"
+                Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <Label Style="{StaticResource ForLabel}"
+                        Content="Добавление нового документа:"
+                        Margin="0, 24, 0, 0"/>
+                <Border BorderThickness="1"
+                        BorderBrush="#071351"
+                        Width="368"
+                        Margin="0, 6, 0, 0"/>
+                <Grid>
+                    <StackPanel Margin="0, 107, 727, 0" 
+                            Orientation="Vertical"
+                            HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                            <Label      Style="{StaticResource ForLabel}"
+                                        Content="№ документа"
+                                        Margin="0, 0, 21, 0"
+                                        FontSize="18"/>
+                            <TextBox    Style="{StaticResource ForTextBox}"
+                                        Width="338"
+                                        Height="50"
+                                        x:Name="TBNumberDocument"
+                                        HorizontalContentAlignment="Center"
+                                        Padding="20, 15"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0, 14, 0, 0"
+                                HorizontalAlignment="Right">
+                            <Label      Style="{StaticResource ForLabel}"
+                                        Content="Название"
+                                        Margin="0, 0, 21, 0"
+                                        FontSize="18"/>
+                            <TextBox    Style="{StaticResource ForTextBox}"
+                                        Width="338"
+                                        Height="50"
+                                        x:Name="TBName"
+                                        HorizontalContentAlignment="Center"
+                                        Padding="20, 15"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0, 14, 0, 0"
+                                HorizontalAlignment="Right">
+                            <Label Style="{StaticResource ForLabel}"
+                                    Content="Автор"
+                                    Margin="0, 0, 21, 0"
+                                   FontSize="18"/>
+                            <ComboBox   Style="{StaticResource ForComboBox}"
+                                        Width="338"
+                                        Height="50" 
+                                        x:Name="CBAuthor"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="0, 107, 212, 0" 
+                            Orientation="Vertical"
+                            HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                            <Label Style="{StaticResource ForLabel}"
+                                    Content="Тип"
+                                    Margin="0, 0, 21, 0"
+                                   FontSize="18"/>
+                            <ComboBox   Style="{StaticResource ForComboBox}"
+                                        Width="338"
+                                        Height="50" 
+                                        x:Name="CBType"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0, 14, 0, 0"
+                                HorizontalAlignment="Right">
+                            <Label      Style="{StaticResource ForLabel}"
+                                        Content="Дата создания"
+                                        Margin="0, 0, 21, 0"
+                                        FontSize="18"/>
+                            <Viewbox HorizontalAlignment="Left" 
+                                     Width="338"
+                                     Height="50">
+                                <DatePicker x:Name="DPCreateDate"/>
+                            </Viewbox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="0, 14, 0, 0"
+                                HorizontalAlignment="Right">
+                            <Label Style="{StaticResource ForLabel}"
+                                    Content="Статус"
+                                    Margin="0, 0, 21, 0"
+                                   FontSize="18"/>
+                            <ComboBox
+                                        Width="338"
+                                        Height="50" 
+                                        x:Name="CBStatus">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0, 18, 212, 0">
+                    <Label      Style="{StaticResource ForLabel}"
+                                Content="Дата создания"
+                                Margin="0, 15, 21, 0"
+                                FontSize="18"
+                                VerticalAlignment="Top"/>
+                    <TextBox    Style="{StaticResource ForTextBox}"
+                                Width="854"
+                                Height="252"
+                                x:Name="TBDescript"
+                                HorizontalContentAlignment="Center"
+                                Padding="20, 15"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0, 24, 0, 0">
+                    <Button Style="{StaticResource ForButtons}"
+                            Padding="77, 20"
+                            HorizontalAlignment="Right"
+                            Margin="0, 0, 170, 0"
+                            x:Name="BTNLoadFile"
+                            Click="BTNLoadFile_Click">
+                        <Label  Style="{StaticResource ForLabel}"
+                                Content="Загрузить файл"
+                                Foreground="#071351"
+                                Padding="0"
+                                x:Name="BTNLoadFileLabel"/>
+                    </Button>
+                    <Viewbox Height="40"
+                             Width="80">
+                        <CheckBox   BorderBrush="#071351"
+                                    BorderThickness="1"
+                                    x:Name="CBIsImportant"/>
+                    </Viewbox>
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="СРОЧНО!"
+                           Margin="0, 0, 31, 0"
+                           FontSize="18"
+                           Foreground="#FF0000"
+                           VerticalAlignment="Center"/>
+                    <Viewbox Height="40"
+                             Width="80">
+                        <CheckBox   BorderBrush="#071351"
+                                    BorderThickness="1"
+                                    x:Name="CBIsUrgent"/>
+                    </Viewbox>
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="ВАЖНО!"
+                           Margin="0, 0, 222, 0"
+                           FontSize="18"
+                           Foreground="#000000"
+                           VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0, 52, 0, 0">
+                    <Button Style="{StaticResource ForButtons}"
+                            Padding="53, 20"
+                            HorizontalAlignment="Right"
+                            Background="#071351"
+                            Margin="0, 0, 180, 0"
+                            x:Name="BTNSave"
+                            Click="BTNSave_Click">
+                        <Label  Style="{StaticResource ForLabel}"
+                                    Content="Сохранить документ"
+                                    Foreground="#FFFFFF"
+                                    Padding="0"/>
+                    </Button>
+                    <Button Style="{StaticResource ForButtons}"
+                            Padding="130, 20"
+                            HorizontalAlignment="Right"
+                            x:Name="BTNBack"
+                            Margin="0, 0, 212, 0"
+                            Click="BTNBack_Click">
+                        <Label  Style="{StaticResource ForLabel}"
+                                    Content="Назад"
+                                    Foreground="#071351"
+                                    Padding="0"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

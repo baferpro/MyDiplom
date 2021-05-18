@@ -1,0 +1,106 @@
+﻿<Window x:Class="MyDiplom.Windows.Authorization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyDiplom.Windows"
+        mc:Ignorable="d"
+        Title="Authorization" 
+        Height="700"
+        MaxHeight="750"
+        MinHeight="650"
+        Width="925"
+        MaxWidth="950"
+        MinWidth="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="17.86*"/>
+            <RowDefinition Height="82.14*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#071351">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Source="../Images/icon-document.png"
+                       Width="64"
+                       Height="64"
+                       Margin="0, 0, 40, 0"/>
+                <Label Style="{StaticResource ForLabel}"
+                       Content="Электронный документооборот"
+                       Foreground="#FFFFFF"/>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,285,0"
+                            Grid.Row="0">
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="Логин"
+                           Margin="0, 0, 29, 0"/>
+                    <Border BorderThickness="2"
+                            BorderBrush="#071351"
+                            Width="249"
+                            Height="50"
+                            x:Name="BRDLogin">
+                        <TextBox Style="{StaticResource ForTextBox}"
+                                 x:Name="TBLogin"
+                                 TextChanged="TBLogin_TextChanged"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,285,0"
+                            Grid.Row="1">
+                    <Label Style="{StaticResource ForLabel}"
+                           Content="Пароль"
+                           Margin="0, 0, 21, 0"/>
+                    <Border BorderThickness="2"
+                            BorderBrush="#071351"
+                            Width="249"
+                            Height="50"
+                            x:Name="BRDPassword">
+                        <PasswordBox Style="{StaticResource ForPasswordBox}"
+                                     x:Name="PBPassword"
+                                     PasswordChanged="PBPassword_PasswordChanged"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Grid.Row="2">
+                <Button Style="{StaticResource ForButtons}"
+                        Margin="0,0,76,0"
+                        x:Name="BTNEnter"
+                        Click="BTNEnter_Click">
+                    <Button.Content >
+                        <Label Style="{StaticResource ForLabel}"
+                               Width="209"
+                               Content="Войти"/>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource ForButtons}"
+                        Background="#D1D2DE"
+                        x:Name="BTNCancel"
+                        Click="BTNCancel_Click">
+                    <Button.Content>
+                        <Label Style="{StaticResource ForLabel}"
+                                   Width="209"
+                                   Content="Отмена"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
