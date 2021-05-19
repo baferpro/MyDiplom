@@ -111,13 +111,5 @@ namespace MyDiplom.Windows
 
             LVMain.ItemsSource = list;
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if(e.Cancel)
-            {
-                gPrewWindow.FullExit();
-            }
-        }
     }
 }

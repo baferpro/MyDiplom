@@ -13,7 +13,7 @@
         MinWidth="1400"
         MaxWidth="1480"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -156,14 +156,67 @@
                 </Border>
                 <StackPanel Orientation="Horizontal"
                             Margin="42, 40, 0, 0">
-                    <Label Style="{StaticResource ForLabel}"
+                    <Label  Style="{StaticResource ForLabel}"
                             Content="Отправить на согласование:"
-                           Margin="0, 0, 76, 0"/>
-                    <ComboBox   Style="{StaticResource ForComboBox}"
-                                Width="338"
-                                Height="50"
-                                x:Name="CBUsers">
-                    </ComboBox>
+                            Margin="0, 15, 30, 0"
+                            VerticalAlignment="Top"
+                            x:Name="TBApproval"/>
+                    <ListView   Width="1015"
+                                Height="200"
+                                Background="#E5E5E5"
+                                x:Name="LVMain"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Margin="0, 14"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border x:Name="Border"
+                                                    Width="900"
+                                                    Height="75"
+                                                    Margin="46, 14, 0, 14"
+                                                    Background="#FFFFFF">
+                                                <ContentPresenter />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Left">
+                                    <Viewbox Height="80"
+                                             Width="80">
+                                        <CheckBox x:Name="CBIsApprovalChecked"
+                                              Checked="CBIsApprovalChecked_Checked"
+                                              Unchecked="CBIsApprovalChecked_Unchecked"
+                                              VerticalAlignment="Center"
+                                              Margin="20, 0, 15, 0"/>
+                                    </Viewbox>
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <Label Content="{Binding FirstName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                        <Label Content=" "
+                                            Style="{StaticResource ForLabel}"/>
+                                        <Label Content="{Binding MiddleName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                        <Label Content=" "
+                                            Style="{StaticResource ForLabel}"/>
+                                        <Label Content="{Binding LastName}"
+                                            Style="{StaticResource ForLabel}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"

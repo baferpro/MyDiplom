@@ -12,7 +12,8 @@
         Width="925"
         MaxWidth="950"
         MinWidth="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="17.86*"/>

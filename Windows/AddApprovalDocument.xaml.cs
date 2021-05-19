@@ -24,6 +24,7 @@ namespace MyDiplom.Windows
         int gUserId;
         int gDocumentId;
         MainWindow gPrewWindow;
+        List<User> gNeedSave = new List<User>();
         public AddApprovalDocument(int lDocumentId, int lUserId, MainWindow lPrewWindow)
         {
             gDocumentId = lDocumentId;
@@ -63,19 +64,17 @@ namespace MyDiplom.Windows
             else
                 TBIsUrgent.Visibility = Visibility.Hidden;
 
-            CBUsers.ItemsSource = db.User.ToList();
-            CBUsers.SelectedIndex = 0;
-            foreach (User user in CBUsers.Items)
-            {
-                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
-            }
-            CBUsers.DisplayMemberPath = "FirstName";
-
             if (document.DocumentStatusId == 3)
             {
-                BTNSave.Background = new SolidColorBrush(Color.FromRgb(229, 229, 229));
-                BTNSave.IsEnabled = false;
-                BTNSave.Foreground = new SolidColorBrush(Color.FromRgb(7, 19, 81));
+                BTNSave.Visibility = Visibility.Hidden;
+                LVMain.Visibility = Visibility.Hidden;
+                TBApproval.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                var list = db.User.ToList();
+                LVMain.ItemsSource = list;
+                Check();
             }
         }
 
@@ -87,11 +86,14 @@ namespace MyDiplom.Windows
 
         private void BTNSave_Click(object sender, RoutedEventArgs e)
         {
-            db.Approval.Add(new Approval
+            for (int i = 0; i < gNeedSave.Count; i++)
             {
-                DocumentId = gDocumentId,
-                UserId = CBUsers.SelectedIndex + 1
-            });
+                db.Approval.Add(new Approval
+                {
+                    DocumentId = gDocumentId,
+                    UserId = gNeedSave[i].Id
+                });
+            }
             var document = db.Document.Where(i => i.Id == gDocumentId).FirstOrDefault();
             document.DocumentStatusId = 2;
             db.SaveChanges();
@@ -105,11 +107,39 @@ namespace MyDiplom.Windows
             this.Close();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CBIsApprovalChecked_Checked(object sender, RoutedEventArgs e)
         {
-            if (e.Cancel)
+            var checkBox = sender as CheckBox;
+            if (checkBox == null)
+                return;
+            var user = checkBox.DataContext as User;
+            gNeedSave.Add(user);
+            Check();
+        }
+
+        private void CBIsApprovalChecked_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            if (checkBox == null)
+                return;
+            var user = checkBox.DataContext as User;
+            for (int i = 0; i < gNeedSave.Count; i++)
+                if (gNeedSave[i] == user)
+                    gNeedSave.RemoveAt(i);
+            Check();
+        }
+
+        public void Check()
+        {
+            if(gNeedSave.Count == 0)
             {
-                gPrewWindow.FullExit();
+                BTNSave.Background = new SolidColorBrush(Color.FromRgb(229, 229, 229));
+                BTNSave.IsEnabled = false;
+            }
+            else
+            {
+                BTNSave.Background = new SolidColorBrush(Color.FromRgb(7, 19, 81));
+                BTNSave.IsEnabled = true;
             }
         }
     }

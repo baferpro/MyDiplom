@@ -130,6 +130,8 @@ namespace MyDiplom.Windows
 
         public void Filter()
         {
+            LVMain.ItemsSource = null;
+
             var list = db.Affiliation.Where(i => i.UserId == gUserId).ToList();
 
             if (TBNumberFilter.Text.Length > 0 && TBNumberFilter.Text.ToLower().Equals("№ документа".ToLower()) == false)
@@ -189,20 +191,6 @@ namespace MyDiplom.Windows
         {
             gLoginPage.Visibility = Visibility.Visible;
             this.Close();
-        }
-
-        public void FullExit()
-        {
-            this.Close();
-            gLoginPage.Close();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if(e.Cancel)
-            {
-                gLoginPage.Close();
-            }
         }
     }
 }

@@ -13,7 +13,7 @@
         MinWidth="1400"
         MaxWidth="1480"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -85,7 +85,7 @@
                                         Height="50"
                                         x:Name="TBNumberDocument"
                                         HorizontalContentAlignment="Left"
-                                        Padding="20, 15"/>
+                                        Padding="20, 0"/>
                         </StackPanel>
                         <StackPanel     Orientation="Horizontal"
                                         Margin="0, 14, 0, 0"
@@ -99,7 +99,7 @@
                                         Height="50"
                                         x:Name="TBName"
                                         HorizontalContentAlignment="Left"
-                                        Padding="20, 15"/>
+                                        Padding="20, 0"/>
                         </StackPanel>
                         <StackPanel     Orientation="Horizontal"
                                         Margin="0, 14, 0, 0"
@@ -111,7 +111,8 @@
                             <ComboBox   Style="{StaticResource ForComboBox}"
                                         Width="338"
                                         Height="50" 
-                                        x:Name="CBAuthor"/>
+                                        x:Name="CBAuthor"
+                                        FontSize="18"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0, 107, 212, 0" 
@@ -126,21 +127,19 @@
                             <ComboBox   Style="{StaticResource ForComboBox}"
                                         Width="338"
                                         Height="50" 
-                                        x:Name="CBType"/>
+                                        x:Name="CBType"
+                                        FontSize="18"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0, 14, 0, 0"
-                                HorizontalAlignment="Right">
+                                HorizontalAlignment="Left">
                             <Label      Style="{StaticResource ForLabel}"
                                         Content="Дата создания"
                                         Margin="0, 0, 21, 0"
                                         FontSize="18"/>
-                            <Viewbox HorizontalAlignment="Left" 
-                                     Width="338">
-                                <DatePicker x:Name="DPCreateDate"
-                                            FontFamily="Roboto"
-                                            FontSize="18"/>
-                            </Viewbox>
+                            <DatePicker x:Name="DPCreateDate"
+                                        FontFamily="Roboto"
+                                        FontSize="18"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0, 14, 0, 0"
@@ -152,7 +151,8 @@
                             <ComboBox   Style="{StaticResource ForComboBox}"
                                         Width="338"
                                         Height="50" 
-                                        x:Name="CBStatus"/>
+                                        x:Name="CBStatus"
+                                        FontSize="18"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

@@ -41,12 +41,13 @@ namespace MyDiplom.Windows
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            CBAuthor.ItemsSource = db.User.ToList();
-            foreach(User user in CBAuthor.Items)
+            List<User> list = db.User.ToList();
+            for (int i = 0; i < list.Count(); i++)
             {
-                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
+                string FIO = list[i].FirstName + " " + list[i].MiddleName[0] + "." + list[i].LastName[0] + ".";
+                CBAuthor.Items.Add(FIO);
             }
-            CBAuthor.DisplayMemberPath = "FirstName";
+            CBAuthor.SelectedIndex = 0;
 
             CBType.ItemsSource = db.DocumentType.ToList();
             CBType.DisplayMemberPath = "Name";
@@ -114,14 +115,6 @@ namespace MyDiplom.Windows
         {
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (e.Cancel)
-            {
-                gPrewWindow.FullExit();
-            }
         }
     }
 }

@@ -45,9 +45,12 @@ namespace MyDiplom.Windows
             for (int i = 0; i < needSave.Count; i++)
             {
                 int documentId = needSave[i].DocumentId;
-                var document = db.Document.Where(g => g.Id == documentId).FirstOrDefault();
-                document.DocumentStatusId = 3;
                 db.Approval.Remove(needSave[i]);
+                if(db.Approval.Where(g => g.DocumentId == documentId).Count() == 0)
+                {
+                    var document = db.Document.Where(g => g.Id == documentId).FirstOrDefault();
+                    document.DocumentStatusId = 3;
+                }
             }
             db.SaveChanges();
             gPrewWindow.Visibility = Visibility.Visible;
@@ -84,14 +87,6 @@ namespace MyDiplom.Windows
             for (int i = 0; i < needSave.Count; i++)
                 if (needSave[i] == approval)
                     needSave.RemoveAt(i);
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (e.Cancel)
-            {
-                gPrewWindow.FullExit();
-            }
         }
     }
 }

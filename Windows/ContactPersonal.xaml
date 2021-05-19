@@ -13,7 +13,7 @@
         MinWidth="1400"
         MaxWidth="1480"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -113,7 +113,7 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-                <ListView Height="515"
+                <ListView Height="500"
                           Margin="0, 37, 0, 48"
                           Background="#E5E5E5"
                           x:Name="LVMain"

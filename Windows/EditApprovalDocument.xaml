@@ -13,7 +13,7 @@
         MinWidth="1400"
         MaxWidth="1480"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>

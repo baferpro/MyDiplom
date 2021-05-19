@@ -39,21 +39,17 @@ namespace MyDiplom.Windows
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            CBAuthor.ItemsSource = db.User.ToList();
-            CBAuthor.SelectedIndex = 0;
-            foreach (User user in CBAuthor.Items)
+            List<User> list = db.User.ToList();
+            for(int i = 0; i < list.Count(); i++)
             {
-                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
+                string FIO = list[i].FirstName + " " + list[i].MiddleName[0] + "." + list[i].LastName[0] + ".";
+                CBAuthor.Items.Add(FIO);
             }
-            CBAuthor.DisplayMemberPath = "FirstName";
+            CBAuthor.SelectedIndex = 0;
             
             CBType.ItemsSource = db.DocumentType.ToList();
             CBType.SelectedIndex = 0;
             CBType.DisplayMemberPath = "Name";
-
-            CBStatus.ItemsSource = db.DocumentStatus.ToList();
-            CBStatus.SelectedIndex = 0;
-            CBStatus.DisplayMemberPath = "Name";
         }
 
         private void BTNExit_Click(object sender, RoutedEventArgs e)
@@ -82,7 +78,7 @@ namespace MyDiplom.Windows
                 AuthorId = CBAuthor.SelectedIndex+1,
                 DocumentTypeId = CBType.SelectedIndex+1,
                 CreateDate = DPCreateDate.SelectedDate.Value,
-                DocumentStatusId = CBStatus.SelectedIndex+1,
+                DocumentStatusId = 1,
                 IsImportant = CBIsImportant.IsChecked.Value,
                 IsUrgent = CBIsUrgent.IsChecked.Value,
                 File = File.ReadAllBytes(FileName)
@@ -101,14 +97,6 @@ namespace MyDiplom.Windows
         {
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (e.Cancel)
-            {
-                gPrewWindow.FullExit();
-            }
         }
     }
 }
