@@ -22,9 +22,13 @@ namespace MyDiplom.Windows
     {
         public static MyDBEntities db = new MyDBEntities();
         int gUserId;
-        public AddApprovalDocument(int lDocumentId, int lUserId)
+        int gDocumentId;
+        MainWindow gPrewWindow;
+        public AddApprovalDocument(int lDocumentId, int lUserId, MainWindow lPrewWindow)
         {
+            gDocumentId = lDocumentId;
             gUserId = lUserId;
+            gPrewWindow = lPrewWindow;
             InitializeComponent();
             string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
             string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
@@ -58,26 +62,55 @@ namespace MyDiplom.Windows
                 TBIsUrgent.Visibility = Visibility.Visible;
             else
                 TBIsUrgent.Visibility = Visibility.Hidden;
-        }
 
-        private void BTNAddApprovaler_Click(object sender, RoutedEventArgs e)
-        {
+            CBUsers.ItemsSource = db.User.ToList();
+            CBUsers.SelectedIndex = 0;
+            foreach (User user in CBUsers.Items)
+            {
+                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
+            }
+            CBUsers.DisplayMemberPath = "FirstName";
 
+            if (document.DocumentStatusId == 3)
+            {
+                BTNSave.Background = new SolidColorBrush(Color.FromRgb(229, 229, 229));
+                BTNSave.IsEnabled = false;
+                BTNSave.Foreground = new SolidColorBrush(Color.FromRgb(7, 19, 81));
+            }
         }
 
         private void BTNExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            gPrewWindow.BackToStart();
         }
 
         private void BTNSave_Click(object sender, RoutedEventArgs e)
         {
+            db.Approval.Add(new Approval
+            {
+                DocumentId = gDocumentId,
+                UserId = CBUsers.SelectedIndex + 1
+            });
+            var document = db.Document.Where(i => i.Id == gDocumentId).FirstOrDefault();
+            document.DocumentStatusId = 2;
+            db.SaveChanges();
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)
         {
+            gPrewWindow.Visibility = Visibility.Visible;
+            this.Close();
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel)
+            {
+                gPrewWindow.FullExit();
+            }
         }
     }
 }

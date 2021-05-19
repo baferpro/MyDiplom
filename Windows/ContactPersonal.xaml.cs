@@ -20,12 +20,10 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class ContactPersonal : Window
     {
-        Authorization gOwnWindow;
-        MainWindow gPrewWindow;
         public static MyDBEntities db = new MyDBEntities();
-        public ContactPersonal(Authorization lOwnWindow, MainWindow lPrewWindow, int lUserId)
+        MainWindow gPrewWindow;
+        public ContactPersonal(int lUserId, MainWindow lPrewWindow)
         {
-            gOwnWindow = lOwnWindow;
             gPrewWindow = lPrewWindow;
             InitializeComponent();
             string FirstName = db.User.Where(i => i.Id == lUserId).Select(i => i.FirstName).First();
@@ -36,18 +34,90 @@ namespace MyDiplom.Windows
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            var list = db.User.ToList();
-            LVMain.ItemsSource = list;
+            Filter();
         }
 
         private void BTNExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            gPrewWindow.BackToStart();
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)
         {
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
+        }
+
+        private void BTNClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            TBPhoneFilter.Text = "Телефон";
+            TBPostFilter.Text = "Должность";
+            TBFioFilter.Text = "ФИО";
+            Filter();
+        }
+
+        private void TBPhoneFilter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TBPhoneFilter.Text.Equals("Телефон"))
+                TBPhoneFilter.Text = "";
+        }
+
+        private void TBPostFilter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TBPostFilter.Text.Equals("Должность"))
+                TBPostFilter.Text = "";
+        }
+
+        private void TBFioFilter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TBFioFilter.Text.Equals("ФИО"))
+                TBFioFilter.Text = "";
+        }
+
+        private void TBFioFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.IsLoaded)
+            {
+                Filter();
+            }
+        }
+
+        private void TBPostFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.IsLoaded)
+            {
+                Filter();
+            }
+        }
+
+        private void TBPhoneFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.IsLoaded)
+            {
+                Filter();
+            }
+        }
+        public void Filter()
+        {
+            var list = db.User.ToList();
+
+            if (TBFioFilter.Text.Length > 0 && TBFioFilter.Text.ToLower().Equals("ФИО".ToLower()) == false)
+                list = list.Where(i => i.FirstName.ToLower().Contains(TBFioFilter.Text.ToLower()) || i.MiddleName.ToLower().Contains(TBFioFilter.Text.ToLower()) || i.LastName.ToLower().Contains(TBFioFilter.Text.ToLower())).ToList();
+            if (TBPostFilter.Text.Length > 0 && TBPostFilter.Text.ToLower().Equals("Должность".ToLower()) == false)
+                list = list.Where(i => i.Post.Name.ToLower().Contains(TBPostFilter.Text.ToLower())).ToList();
+            if (TBPhoneFilter.Text.Length > 0 && TBPhoneFilter.Text.ToLower().Equals("Телефон".ToLower()) == false)
+                list = list.Where(i => i.Phone.ToLower().Contains(TBPhoneFilter.Text.ToLower())).ToList();
+
+            LVMain.ItemsSource = list;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(e.Cancel)
+            {
+                gPrewWindow.FullExit();
+            }
         }
     }
 }

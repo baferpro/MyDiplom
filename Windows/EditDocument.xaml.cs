@@ -26,11 +26,12 @@ namespace MyDiplom.Windows
         int gDocumentId;
         int gUserId;
         string FileName = null;
-        public EditDocument(int lDocumentId, int lUserId)
+        MainWindow gPrewWindow;
+        public EditDocument(int lDocumentId, int lUserId, MainWindow lPrewWindow)
         {
             gDocumentId = lDocumentId;
             gUserId = lUserId;
-
+            gPrewWindow = lPrewWindow;
             InitializeComponent();
             string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
             string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
@@ -41,6 +42,10 @@ namespace MyDiplom.Windows
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
             CBAuthor.ItemsSource = db.User.ToList();
+            foreach(User user in CBAuthor.Items)
+            {
+                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
+            }
             CBAuthor.DisplayMemberPath = "FirstName";
 
             CBType.ItemsSource = db.DocumentType.ToList();
@@ -70,6 +75,7 @@ namespace MyDiplom.Windows
         private void BTNExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            gPrewWindow.BackToStart();
         }
 
         private void BTNLoadFile_Click(object sender, RoutedEventArgs e)
@@ -99,13 +105,23 @@ namespace MyDiplom.Windows
                 document.File = File.ReadAllBytes(FileName);
             }*/
             db.SaveChanges();
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
 
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)
         {
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel)
+            {
+                gPrewWindow.FullExit();
+            }
         }
     }
 }

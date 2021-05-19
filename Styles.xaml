@@ -115,7 +115,7 @@
         <Setter Property="FontSize" 
                 Value="24"/>
     </Style>
-    <ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
+    <!--<ControlTemplate x:Key="ComboBoxControlTemplate" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -280,5 +280,5 @@
                 <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
             </Trigger>
         </ControlTemplate.Triggers>
-    </ControlTemplate>
+    </ControlTemplate>-->
 </ResourceDictionary>

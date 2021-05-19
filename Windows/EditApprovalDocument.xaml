@@ -12,7 +12,8 @@
         Width="1440"
         MinWidth="1400"
         MaxWidth="1480"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -97,38 +98,40 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Left">
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal"
-                                            Margin="18, 20, 0, 0">
-                                        <Label Content="№ "
-                                            Style="{StaticResource ForLabel}"/>
-                                        <Label Content="{Binding Document.Number}"
-                                            Style="{StaticResource ForLabel}"/>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal"
+                                                Margin="18, 20, 0, 0">
+                                            <Label Content="№ "
+                                                Style="{StaticResource ForLabel}"/>
+                                            <Label Content="{Binding Document.Number}"
+                                                Style="{StaticResource ForLabel}"/>
+                                        </StackPanel>
+                                        <Label Content="{Binding Document.Descript}"
+                                            Style="{StaticResource ForLabel}"
+                                            HorizontalAlignment="Left"
+                                            Margin="20, 15, 0, 0"/>
                                     </StackPanel>
-                                    <Label Content="{Binding Document.Descript}"
-                                        Style="{StaticResource ForLabel}"
-                                        HorizontalAlignment="Left"
-                                        Margin="20, 15, 0, 0"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox Height="40"
+                                                Width="80">
+                                            <CheckBox   BorderBrush="#071351"
+                                                        BorderThickness="1"
+                                                        x:Name="CBIsChecked" 
+                                                        Checked="CBIsChecked_Checked"
+                                                        Unchecked="CBIsChecked_Unchecked"/>
+                                        </Viewbox>
+                                        <Label Style="{StaticResource ForLabel}"
+                                               Content="Согласовать"
+                                               Margin="0, 0, 222, 0"
+                                               FontSize="18"
+                                               Foreground="#000000"
+                                               VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Viewbox Height="40"
-                                            Width="80">
-                                        <CheckBox   BorderBrush="#071351"
-                                                    BorderThickness="1"
-                                                    x:Name="CBIsChecked" 
-                                                    Checked="CBIsChecked_Checked"
-                                                    Unchecked="CBIsChecked_Unchecked"/>
-                                    </Viewbox>
-                                    <Label Style="{StaticResource ForLabel}"
-                                           Content="Согласовать"
-                                           Margin="0, 0, 222, 0"
-                                           FontSize="18"
-                                           Foreground="#000000"
-                                           VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

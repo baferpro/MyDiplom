@@ -25,9 +25,11 @@ namespace MyDiplom.Windows
         public static MyDBEntities db = new MyDBEntities();
         string FileName = null;
         int gUserId;
-        public AddNewDocument(int lUserId)
+        MainWindow gPrewWindow;
+        public AddNewDocument(int lUserId, MainWindow lPrewWindow)
         {
             gUserId = lUserId;
+            gPrewWindow = lPrewWindow;
             InitializeComponent();
             string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
             string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
@@ -39,6 +41,10 @@ namespace MyDiplom.Windows
 
             CBAuthor.ItemsSource = db.User.ToList();
             CBAuthor.SelectedIndex = 0;
+            foreach (User user in CBAuthor.Items)
+            {
+                user.FirstName = user.FirstName + " " + user.MiddleName[0] + "." + user.LastName[0] + ".";
+            }
             CBAuthor.DisplayMemberPath = "FirstName";
             
             CBType.ItemsSource = db.DocumentType.ToList();
@@ -53,6 +59,7 @@ namespace MyDiplom.Windows
         private void BTNExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            gPrewWindow.BackToStart();
         }
 
         private void BTNLoadFile_Click(object sender, RoutedEventArgs e)
@@ -86,12 +93,22 @@ namespace MyDiplom.Windows
                 DocumentId = NewDocumentId
             });
             db.SaveChanges();
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)
         {
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel)
+            {
+                gPrewWindow.FullExit();
+            }
         }
     }
 }

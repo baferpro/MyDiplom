@@ -22,10 +22,12 @@ namespace MyDiplom.Windows
     {
         public static MyDBEntities db = new MyDBEntities();
         int gUserId;
-        List<Approval> needSave;
-        public EditApprovalDocument(int lUserId)
+        List<Approval> needSave = new List<Approval>();
+        MainWindow gPrewWindow;
+        public EditApprovalDocument(int lUserId, MainWindow lPrewWindow)
         {
             gUserId = lUserId;
+            gPrewWindow = lPrewWindow;
             InitializeComponent();
             string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
             string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
@@ -42,22 +44,26 @@ namespace MyDiplom.Windows
         {
             for (int i = 0; i < needSave.Count; i++)
             {
-                var document = db.Document.Where(g => g.Id == needSave[i].DocumentId).FirstOrDefault();
+                int documentId = needSave[i].DocumentId;
+                var document = db.Document.Where(g => g.Id == documentId).FirstOrDefault();
                 document.DocumentStatusId = 3;
                 db.Approval.Remove(needSave[i]);
-                db.SaveChanges();
             }
-                
+            db.SaveChanges();
+            gPrewWindow.Visibility = Visibility.Visible;
+            this.Close();
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)
         {
+            gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }
 
         private void BTNExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            gPrewWindow.BackToStart();
         }
 
         private void CBIsChecked_Checked(object sender, RoutedEventArgs e)
@@ -78,6 +84,14 @@ namespace MyDiplom.Windows
             for (int i = 0; i < needSave.Count; i++)
                 if (needSave[i] == approval)
                     needSave.RemoveAt(i);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel)
+            {
+                gPrewWindow.FullExit();
+            }
         }
     }
 }

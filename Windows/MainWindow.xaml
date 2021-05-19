@@ -12,7 +12,8 @@
         Width="1440"
         MinWidth="1400"
         MaxWidth="1480"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -82,7 +83,9 @@
                                     Foreground="#071351"
                                     Margin="0, 0, 34, 0"/>
                             <Button Style="{StaticResource ForButtons}"
-                                    Padding="11, 15">
+                                    Padding="11, 15"
+                                    x:Name="BTNClearFilter"
+                                    Click="BTNClearFilter_Click">
                                 <Button.Content >
                                     <Label Style="{StaticResource ForLabel}"
                                             Content="Очистить"
@@ -91,26 +94,39 @@
                                 </Button.Content>
                             </Button>
                         </StackPanel>
-                        <TextBox Style="{StaticResource ForTextBox}"
+                        <TextBox    Style="{StaticResource ForTextBox}"
                                     Text="№ документа"
                                     HorizontalContentAlignment="Center"
                                     Margin="0, 14, 0, 0"
-                                    Padding="20, 15"/>
-                        <TextBox Style="{StaticResource ForTextBox}"
+                                    Padding="20, 15"
+                                    x:Name="TBNumberFilter"
+                                    PreviewMouseDown="TBNumberFilter_PreviewMouseDown"
+                                    TextChanged="TBNumberFilter_TextChanged"/>
+                        <TextBox    Style="{StaticResource ForTextBox}"
                                     Text="Статус"
                                     HorizontalContentAlignment="Center"
                                     Margin="0, 14, 0, 0"
-                                    Padding="20, 15"/>
-                        <TextBox Style="{StaticResource ForTextBox}"
+                                    Padding="20, 15"
+                                    x:Name="TBStatusFilter"
+                                    PreviewMouseDown="TBStatusFilter_PreviewMouseDown"
+                                    TextChanged="TBStatusFilter_TextChanged"/>
+                        <TextBox    Style="{StaticResource ForTextBox}"
                                     Text="Автор"
                                     HorizontalContentAlignment="Center"
                                     Margin="0, 14, 0, 0"
-                                    Padding="20, 15"/>
-                        <TextBox Style="{StaticResource ForTextBox}"
-                                    Text="Автор"
+                                    Padding="20, 15"
+                                    x:Name="TBAurhorFilter"
+                                    PreviewMouseDown="TBAurhorFilter_PreviewMouseDown"
+                                    TextChanged="TBAurhorFilter_TextChanged"/>
+                        <TextBox    Style="{StaticResource ForTextBox}"
+                                    Text="Название документа"
                                     HorizontalContentAlignment="Center"
                                     Margin="0, 14, 0, 0"
-                                    Padding="20, 15"/>
+                                    Padding="20, 15"
+                                    x:Name="TBNameFilter"
+                                    PreviewMouseDown="TBNameFilter_PreviewMouseDown"
+                                    TextChanged="TBNameFilter_TextChanged"
+                                    />
                     </StackPanel>
                     <Border Height="1"
                             Background="#071351"

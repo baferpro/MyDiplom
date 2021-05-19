@@ -13,7 +13,8 @@
         Width="1440"
         MinWidth="1400"
         MaxWidth="1480"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -84,7 +85,7 @@
                                         Width="338"
                                         Height="50"
                                         x:Name="TBNumberDocument"
-                                        HorizontalContentAlignment="Center"
+                                        HorizontalContentAlignment="Left"
                                         Padding="20, 15"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
@@ -98,7 +99,7 @@
                                         Width="338"
                                         Height="50"
                                         x:Name="TBName"
-                                        HorizontalContentAlignment="Center"
+                                        HorizontalContentAlignment="Left"
                                         Padding="20, 15"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
@@ -136,23 +137,23 @@
                                         Margin="0, 0, 21, 0"
                                         FontSize="18"/>
                             <Viewbox HorizontalAlignment="Left" 
-                                     Width="338"
-                                     Height="50">
-                                <DatePicker x:Name="DPCreateDate"/>
+                                     Width="338">
+                                <DatePicker x:Name="DPCreateDate"
+                                            FontFamily="Roboto"
+                                            FontSize="18"/>
                             </Viewbox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0, 14, 0, 0"
                                 HorizontalAlignment="Right">
-                            <Label Style="{StaticResource ForLabel}"
+                            <Label  Style="{StaticResource ForLabel}"
                                     Content="Статус"
                                     Margin="0, 0, 21, 0"
-                                   FontSize="18"/>
-                            <ComboBox
+                                    FontSize="18"/>
+                            <ComboBox   Style="{StaticResource ForComboBox}"
                                         Width="338"
                                         Height="50" 
-                                        x:Name="CBStatus">
-                            </ComboBox>
+                                        x:Name="CBStatus"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -160,7 +161,7 @@
                             HorizontalAlignment="Right"
                             Margin="0, 18, 212, 0">
                     <Label      Style="{StaticResource ForLabel}"
-                                Content="Дата создания"
+                                Content="Описание"
                                 Margin="0, 15, 21, 0"
                                 FontSize="18"
                                 VerticalAlignment="Top"/>
@@ -168,7 +169,9 @@
                                 Width="854"
                                 Height="252"
                                 x:Name="TBDescript"
-                                HorizontalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                TextWrapping="Wrap"
+                                VerticalContentAlignment="Top"
                                 Padding="20, 15"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"

@@ -36,10 +36,11 @@ namespace MyDiplom.Windows
                 if(passwordsCount == 1)
                 {
                     int UserId = db.User.Where(i => i.Login.Equals(TBLogin.Text) && i.Password.Equals(PBPassword.Password)).Select(i => i.Id).First();
-                    this.Visibility = Visibility.Collapsed;
-                    MainWindow mainWindow = new MainWindow(this, UserId);
+                    TBLogin.Text = "";
+                    PBPassword.Password = "";
+                    this.Visibility = Visibility.Hidden;
+                    MainWindow mainWindow = new MainWindow(UserId, this);
                     mainWindow.ShowDialog();
-                    this.Visibility = Visibility.Visible;
                 }
                 else
                 {

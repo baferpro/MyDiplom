@@ -12,7 +12,8 @@
         Width="1440"
         MinWidth="1400"
         MaxWidth="1480"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -158,17 +159,10 @@
                     <Label Style="{StaticResource ForLabel}"
                             Content="Отправить на согласование:"
                            Margin="0, 0, 76, 0"/>
-                    <ComboBox Width="338"
-                              Height="50">
-                        <ComboBoxItem>
-                            <StackPanel>
-                                <Button x:Name="BTNAddApprovaler"
-                                        Click="BTNAddApprovaler_Click"
-                                        Style="{StaticResource ForButtons}">
-                                    Добавить
-                                </Button>
-                            </StackPanel>
-                        </ComboBoxItem>
+                    <ComboBox   Style="{StaticResource ForComboBox}"
+                                Width="338"
+                                Height="50"
+                                x:Name="CBUsers">
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
