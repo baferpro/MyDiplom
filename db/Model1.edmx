@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище DiplomaFaustModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище DiplomaFaustModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,7 +54,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Descript" Type="nvarchar(max)" />
           <Property Name="DocumentTypeId" Type="int" Nullable="false" />
-          <Property Name="PrivacyTypeId" Type="int" />
           <Property Name="DocumentStatusId" Type="int" Nullable="false" />
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -75,7 +74,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -103,7 +102,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -222,18 +221,6 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="DocumentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Document_PrivacyType">
-          <End Role="PrivacyType" Type="Self.PrivacyType" Multiplicity="0..1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PrivacyType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="PrivacyTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,10 +355,6 @@
             <End Role="DocumentType" EntitySet="DocumentType" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
-          <AssociationSet Name="FK_Document_PrivacyType" Association="Self.FK_Document_PrivacyType">
-            <End Role="PrivacyType" EntitySet="PrivacyType" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
           <AssociationSet Name="FK_Document_User" Association="Self.FK_Document_User">
             <End Role="User" EntitySet="User" />
             <End Role="Document" EntitySet="Document" />
@@ -401,11 +384,86 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DiplomaFaustModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Action" EntityType="DiplomaFaustModel.Action" />
+          <EntitySet Name="ActionType" EntityType="DiplomaFaustModel.ActionType" />
+          <EntitySet Name="ActionTypeRole" EntityType="DiplomaFaustModel.ActionTypeRole" />
+          <EntitySet Name="Affiliation" EntityType="DiplomaFaustModel.Affiliation" />
+          <EntitySet Name="Approval" EntityType="DiplomaFaustModel.Approval" />
+          <EntitySet Name="Document" EntityType="DiplomaFaustModel.Document" />
+          <EntitySet Name="DocumentStatus" EntityType="DiplomaFaustModel.DocumentStatus" />
+          <EntitySet Name="DocumentType" EntityType="DiplomaFaustModel.DocumentType" />
+          <EntitySet Name="Post" EntityType="DiplomaFaustModel.Post" />
+          <EntitySet Name="PrivacyType" EntityType="DiplomaFaustModel.PrivacyType" />
+          <EntitySet Name="Right" EntityType="DiplomaFaustModel.Right" />
+          <EntitySet Name="Role" EntityType="DiplomaFaustModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="DiplomaFaustModel.sysdiagrams" />
+          <EntitySet Name="User" EntityType="DiplomaFaustModel.User" />
+          <AssociationSet Name="FK_Action_ActionType" Association="DiplomaFaustModel.FK_Action_ActionType">
+            <End Role="ActionType" EntitySet="ActionType" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_Document" Association="DiplomaFaustModel.FK_Action_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_User" Association="DiplomaFaustModel.FK_Action_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActionTypeRole_ActionType" Association="DiplomaFaustModel.FK_ActionTypeRole_ActionType">
+            <End Role="ActionType" EntitySet="ActionType" />
+            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RightRole_Right" Association="DiplomaFaustModel.FK_RightRole_Right">
+            <End Role="Right" EntitySet="Right" />
+            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RightRole_Role" Association="DiplomaFaustModel.FK_RightRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inscript_Document" Association="DiplomaFaustModel.FK_Inscript_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Affiliation" EntitySet="Affiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inscript_User" Association="DiplomaFaustModel.FK_Inscript_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Affiliation" EntitySet="Affiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Approval_Document" Association="DiplomaFaustModel.FK_Approval_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Approval" EntitySet="Approval" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Approval_User" Association="DiplomaFaustModel.FK_Approval_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Approval" EntitySet="Approval" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocumentStatus" Association="DiplomaFaustModel.FK_Document_DocumentStatus">
+            <End Role="DocumentStatus" EntitySet="DocumentStatus" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_DocumentType" Association="DiplomaFaustModel.FK_Document_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_User" Association="DiplomaFaustModel.FK_Document_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Post" Association="DiplomaFaustModel.FK_User_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="DiplomaFaustModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
@@ -415,18 +473,18 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
           <Property Name="DateAction" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="ActionType" Relationship="Self.FK_Action_ActionType" FromRole="Action" ToRole="ActionType" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Action_Document" FromRole="Action" ToRole="Document" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Action_User" FromRole="Action" ToRole="User" />
+          <NavigationProperty Name="ActionType" Relationship="DiplomaFaustModel.FK_Action_ActionType" FromRole="Action" ToRole="ActionType" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Action_Document" FromRole="Action" ToRole="Document" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_Action_User" FromRole="Action" ToRole="User" />
         </EntityType>
         <EntityType Name="ActionType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_ActionType" FromRole="ActionType" ToRole="Action" />
-          <NavigationProperty Name="ActionTypeRole" Relationship="Self.FK_ActionTypeRole_ActionType" FromRole="ActionType" ToRole="ActionTypeRole" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Action" Relationship="DiplomaFaustModel.FK_Action_ActionType" FromRole="ActionType" ToRole="Action" />
+          <NavigationProperty Name="ActionTypeRole" Relationship="DiplomaFaustModel.FK_ActionTypeRole_ActionType" FromRole="ActionType" ToRole="ActionTypeRole" />
         </EntityType>
         <EntityType Name="ActionTypeRole">
           <Key>
@@ -435,9 +493,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RightId" Type="Int32" Nullable="false" />
           <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ActionType" Relationship="Self.FK_ActionTypeRole_ActionType" FromRole="ActionTypeRole" ToRole="ActionType" />
-          <NavigationProperty Name="Right" Relationship="Self.FK_RightRole_Right" FromRole="ActionTypeRole" ToRole="Right" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_RightRole_Role" FromRole="ActionTypeRole" ToRole="Role" />
+          <NavigationProperty Name="ActionType" Relationship="DiplomaFaustModel.FK_ActionTypeRole_ActionType" FromRole="ActionTypeRole" ToRole="ActionType" />
+          <NavigationProperty Name="Right" Relationship="DiplomaFaustModel.FK_RightRole_Right" FromRole="ActionTypeRole" ToRole="Right" />
+          <NavigationProperty Name="Role" Relationship="DiplomaFaustModel.FK_RightRole_Role" FromRole="ActionTypeRole" ToRole="Role" />
         </EntityType>
         <EntityType Name="Affiliation">
           <Key>
@@ -446,8 +504,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="DocumentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Inscript_Document" FromRole="Affiliation" ToRole="Document" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Inscript_User" FromRole="Affiliation" ToRole="User" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Inscript_Document" FromRole="Affiliation" ToRole="Document" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_Inscript_User" FromRole="Affiliation" ToRole="User" />
         </EntityType>
         <EntityType Name="Approval">
           <Key>
@@ -456,87 +514,84 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="DocumentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Approval_Document" FromRole="Approval" ToRole="Document" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Approval_User" FromRole="Approval" ToRole="User" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Approval_Document" FromRole="Approval" ToRole="Document" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_Approval_User" FromRole="Approval" ToRole="User" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descript" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DocumentTypeId" Type="Int32" Nullable="false" />
-          <Property Name="PrivacyTypeId" Type="Int32" />
           <Property Name="DocumentStatusId" Type="Int32" Nullable="false" />
-          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuthorId" Type="Int32" Nullable="false" />
           <Property Name="IsImportant" Type="Boolean" Nullable="false" />
           <Property Name="IsUrgent" Type="Boolean" Nullable="false" />
           <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_Document" FromRole="Document" ToRole="Action" />
-          <NavigationProperty Name="Affiliation" Relationship="Self.FK_Inscript_Document" FromRole="Document" ToRole="Affiliation" />
-          <NavigationProperty Name="Approval" Relationship="Self.FK_Approval_Document" FromRole="Document" ToRole="Approval" />
-          <NavigationProperty Name="DocumentStatus" Relationship="Self.FK_Document_DocumentStatus" FromRole="Document" ToRole="DocumentStatus" />
-          <NavigationProperty Name="DocumentType" Relationship="Self.FK_Document_DocumentType" FromRole="Document" ToRole="DocumentType" />
-          <NavigationProperty Name="PrivacyType" Relationship="Self.FK_Document_PrivacyType" FromRole="Document" ToRole="PrivacyType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Document_User" FromRole="Document" ToRole="User" />
+          <NavigationProperty Name="Action" Relationship="DiplomaFaustModel.FK_Action_Document" FromRole="Document" ToRole="Action" />
+          <NavigationProperty Name="Affiliation" Relationship="DiplomaFaustModel.FK_Inscript_Document" FromRole="Document" ToRole="Affiliation" />
+          <NavigationProperty Name="Approval" Relationship="DiplomaFaustModel.FK_Approval_Document" FromRole="Document" ToRole="Approval" />
+          <NavigationProperty Name="DocumentStatus" Relationship="DiplomaFaustModel.FK_Document_DocumentStatus" FromRole="Document" ToRole="DocumentStatus" />
+          <NavigationProperty Name="DocumentType" Relationship="DiplomaFaustModel.FK_Document_DocumentType" FromRole="Document" ToRole="DocumentType" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_Document_User" FromRole="Document" ToRole="User" />
         </EntityType>
         <EntityType Name="DocumentStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="32" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_DocumentStatus" FromRole="DocumentStatus" ToRole="Document" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Document_DocumentStatus" FromRole="DocumentStatus" ToRole="Document" />
         </EntityType>
         <EntityType Name="DocumentType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_DocumentType" FromRole="DocumentType" ToRole="Document" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Document_DocumentType" FromRole="DocumentType" ToRole="Document" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Post" FromRole="Post" ToRole="User" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_User_Post" FromRole="Post" ToRole="User" />
         </EntityType>
         <EntityType Name="PrivacyType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_PrivacyType" FromRole="PrivacyType" ToRole="Document" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Right">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ActionTypeRole" Relationship="Self.FK_RightRole_Right" FromRole="Right" ToRole="ActionTypeRole" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="16" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ActionTypeRole" Relationship="DiplomaFaustModel.FK_RightRole_Right" FromRole="Right" ToRole="ActionTypeRole" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ActionTypeRole" Relationship="Self.FK_RightRole_Role" FromRole="Role" ToRole="ActionTypeRole" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActionTypeRole" Relationship="DiplomaFaustModel.FK_RightRole_Role" FromRole="Role" ToRole="ActionTypeRole" />
+          <NavigationProperty Name="User" Relationship="DiplomaFaustModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -547,24 +602,24 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MiddleName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Action" Relationship="Self.FK_Action_User" FromRole="User" ToRole="Action" />
-          <NavigationProperty Name="Affiliation" Relationship="Self.FK_Inscript_User" FromRole="User" ToRole="Affiliation" />
-          <NavigationProperty Name="Approval" Relationship="Self.FK_Approval_User" FromRole="User" ToRole="Approval" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_Document_User" FromRole="User" ToRole="Document" />
-          <NavigationProperty Name="Post" Relationship="Self.FK_User_Post" FromRole="User" ToRole="Post" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Action" Relationship="DiplomaFaustModel.FK_Action_User" FromRole="User" ToRole="Action" />
+          <NavigationProperty Name="Affiliation" Relationship="DiplomaFaustModel.FK_Inscript_User" FromRole="User" ToRole="Affiliation" />
+          <NavigationProperty Name="Approval" Relationship="DiplomaFaustModel.FK_Approval_User" FromRole="User" ToRole="Approval" />
+          <NavigationProperty Name="Document" Relationship="DiplomaFaustModel.FK_Document_User" FromRole="User" ToRole="Document" />
+          <NavigationProperty Name="Post" Relationship="DiplomaFaustModel.FK_User_Post" FromRole="User" ToRole="Post" />
+          <NavigationProperty Name="Role" Relationship="DiplomaFaustModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_Action_ActionType">
-          <End Role="ActionType" Type="Self.ActionType" Multiplicity="1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.ActionType" Role="ActionType" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Action" Role="Action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionType">
               <PropertyRef Name="Id" />
@@ -575,8 +630,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Action_Document">
-          <End Role="Document" Type="Self.Document" Multiplicity="1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Action" Role="Action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Document">
               <PropertyRef Name="Id" />
@@ -587,8 +642,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Action_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Action" Role="Action" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -599,8 +654,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ActionTypeRole_ActionType">
-          <End Role="ActionType" Type="Self.ActionType" Multiplicity="1" />
-          <End Role="ActionTypeRole" Type="Self.ActionTypeRole" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.ActionType" Role="ActionType" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.ActionTypeRole" Role="ActionTypeRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionType">
               <PropertyRef Name="Id" />
@@ -611,8 +666,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RightRole_Right">
-          <End Role="Right" Type="Self.Right" Multiplicity="1" />
-          <End Role="ActionTypeRole" Type="Self.ActionTypeRole" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Right" Role="Right" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.ActionTypeRole" Role="ActionTypeRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Right">
               <PropertyRef Name="Id" />
@@ -623,8 +678,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RightRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="ActionTypeRole" Type="Self.ActionTypeRole" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.ActionTypeRole" Role="ActionTypeRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -635,8 +690,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inscript_Document">
-          <End Role="Document" Type="Self.Document" Multiplicity="1" />
-          <End Role="Affiliation" Type="Self.Affiliation" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Affiliation" Role="Affiliation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Document">
               <PropertyRef Name="Id" />
@@ -647,8 +702,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inscript_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Affiliation" Type="Self.Affiliation" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Affiliation" Role="Affiliation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -659,8 +714,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Approval_Document">
-          <End Role="Document" Type="Self.Document" Multiplicity="1" />
-          <End Role="Approval" Type="Self.Approval" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Approval" Role="Approval" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Document">
               <PropertyRef Name="Id" />
@@ -671,8 +726,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Approval_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Approval" Type="Self.Approval" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Approval" Role="Approval" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -683,8 +738,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Document_DocumentStatus">
-          <End Role="DocumentStatus" Type="Self.DocumentStatus" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.DocumentStatus" Role="DocumentStatus" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocumentStatus">
               <PropertyRef Name="Id" />
@@ -695,8 +750,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Document_DocumentType">
-          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.DocumentType" Role="DocumentType" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocumentType">
               <PropertyRef Name="Id" />
@@ -706,21 +761,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Document_PrivacyType">
-          <End Role="PrivacyType" Type="Self.PrivacyType" Multiplicity="0..1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PrivacyType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="PrivacyTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Document_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -731,8 +774,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
               <PropertyRef Name="Id" />
@@ -743,8 +786,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="DiplomaFaustModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="DiplomaFaustModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -754,86 +797,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MyDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Action" EntityType="Self.Action" />
-          <EntitySet Name="ActionType" EntityType="Self.ActionType" />
-          <EntitySet Name="ActionTypeRole" EntityType="Self.ActionTypeRole" />
-          <EntitySet Name="Affiliation" EntityType="Self.Affiliation" />
-          <EntitySet Name="Approval" EntityType="Self.Approval" />
-          <EntitySet Name="Document" EntityType="Self.Document" />
-          <EntitySet Name="DocumentStatus" EntityType="Self.DocumentStatus" />
-          <EntitySet Name="DocumentType" EntityType="Self.DocumentType" />
-          <EntitySet Name="Post" EntityType="Self.Post" />
-          <EntitySet Name="PrivacyType" EntityType="Self.PrivacyType" />
-          <EntitySet Name="Right" EntityType="Self.Right" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Action_ActionType" Association="Self.FK_Action_ActionType">
-            <End Role="ActionType" EntitySet="ActionType" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_Document" Association="Self.FK_Action_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Action_User" Association="Self.FK_Action_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Action" EntitySet="Action" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ActionTypeRole_ActionType" Association="Self.FK_ActionTypeRole_ActionType">
-            <End Role="ActionType" EntitySet="ActionType" />
-            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RightRole_Right" Association="Self.FK_RightRole_Right">
-            <End Role="Right" EntitySet="Right" />
-            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RightRole_Role" Association="Self.FK_RightRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="ActionTypeRole" EntitySet="ActionTypeRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inscript_Document" Association="Self.FK_Inscript_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="Affiliation" EntitySet="Affiliation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inscript_User" Association="Self.FK_Inscript_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Affiliation" EntitySet="Affiliation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Approval_Document" Association="Self.FK_Approval_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="Approval" EntitySet="Approval" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Approval_User" Association="Self.FK_Approval_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Approval" EntitySet="Approval" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Document_DocumentStatus" Association="Self.FK_Document_DocumentStatus">
-            <End Role="DocumentStatus" EntitySet="DocumentStatus" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Document_DocumentType" Association="Self.FK_Document_DocumentType">
-            <End Role="DocumentType" EntitySet="DocumentType" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Document_PrivacyType" Association="Self.FK_Document_PrivacyType">
-            <End Role="PrivacyType" EntitySet="PrivacyType" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Document_User" Association="Self.FK_Document_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Document" EntitySet="Document" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Post" Association="Self.FK_User_Post">
-            <End Role="Post" EntitySet="Post" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -843,138 +806,137 @@
           <EntitySetMapping Name="Action">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Action">
               <MappingFragment StoreEntitySet="Action">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
                 <ScalarProperty Name="DateAction" ColumnName="DateAction" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ActionType">
             <EntityTypeMapping TypeName="DiplomaFaustModel.ActionType">
               <MappingFragment StoreEntitySet="ActionType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ActionTypeRole">
             <EntityTypeMapping TypeName="DiplomaFaustModel.ActionTypeRole">
               <MappingFragment StoreEntitySet="ActionTypeRole">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="RightId" ColumnName="RightId" />
                 <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="RightId" ColumnName="RightId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Affiliation">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Affiliation">
               <MappingFragment StoreEntitySet="Affiliation">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Approval">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Approval">
               <MappingFragment StoreEntitySet="Approval">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Document">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Document">
               <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Descript" ColumnName="Descript" />
-                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
-                <ScalarProperty Name="PrivacyTypeId" ColumnName="PrivacyTypeId" />
-                <ScalarProperty Name="DocumentStatusId" ColumnName="DocumentStatusId" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
-                <ScalarProperty Name="IsImportant" ColumnName="IsImportant" />
-                <ScalarProperty Name="IsUrgent" ColumnName="IsUrgent" />
                 <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="IsUrgent" ColumnName="IsUrgent" />
+                <ScalarProperty Name="IsImportant" ColumnName="IsImportant" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="DocumentStatusId" ColumnName="DocumentStatusId" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+                <ScalarProperty Name="Descript" ColumnName="Descript" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentStatus">
             <EntityTypeMapping TypeName="DiplomaFaustModel.DocumentStatus">
               <MappingFragment StoreEntitySet="DocumentStatus">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentType">
             <EntityTypeMapping TypeName="DiplomaFaustModel.DocumentType">
               <MappingFragment StoreEntitySet="DocumentType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Post">
               <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PrivacyType">
             <EntityTypeMapping TypeName="DiplomaFaustModel.PrivacyType">
               <MappingFragment StoreEntitySet="PrivacyType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Right">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Right">
               <MappingFragment StoreEntitySet="Right">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="DiplomaFaustModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="DiplomaFaustModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="DiplomaFaustModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="PostId" ColumnName="PostId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

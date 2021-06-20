@@ -101,14 +101,13 @@ namespace MyDiplom.Windows
             document.Descript = TBDescript.Text;
             document.IsImportant = CBIsImportant.IsChecked.Value;
             document.IsUrgent = CBIsUrgent.IsChecked.Value;
-            /*if(FileName != null && FileName.Length>0)
+            if(FileName != null && FileName.Length>0)
             {
                 document.File = File.ReadAllBytes(FileName);
-            }*/
+            }
             db.SaveChanges();
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
-
         }
 
         private void BTNBack_Click(object sender, RoutedEventArgs e)

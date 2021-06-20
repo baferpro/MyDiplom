@@ -14,16 +14,7 @@ namespace MyDiplom.db
     
     public partial class PrivacyType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PrivacyType()
-        {
-            this.Document = new HashSet<Document>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Document> Document { get; set; }
     }
 }

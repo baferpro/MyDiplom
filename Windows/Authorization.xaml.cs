@@ -29,13 +29,14 @@ namespace MyDiplom.Windows
 
         private void BTNEnter_Click(object sender, RoutedEventArgs e)
         {
-            int loginsCount = db.User.Where(i => i.Login.Equals(TBLogin.Text)).Count();
+            IEnumerable<User> list = db.User.ToList();
+            int loginsCount = list.Where(i => i.Login.Equals(TBLogin.Text)).Count();
             if(loginsCount == 1)
             {
-                int passwordsCount = db.User.Where(i => i.Login.Equals(TBLogin.Text) && i.Password.Equals(PBPassword.Password)).Count();
+                int passwordsCount = list.Where(i => i.Login.Equals(TBLogin.Text) && i.Password.Equals(PBPassword.Password)).Count();
                 if(passwordsCount == 1)
                 {
-                    int UserId = db.User.Where(i => i.Login.Equals(TBLogin.Text) && i.Password.Equals(PBPassword.Password)).Select(i => i.Id).First();
+                    int UserId = list.Where(i => i.Login.Equals(TBLogin.Text) && i.Password.Equals(PBPassword.Password)).Select(i => i.Id).First();
                     TBLogin.Text = "";
                     PBPassword.Password = "";
                     this.Visibility = Visibility.Hidden;

@@ -26,7 +26,6 @@ namespace MyDiplom.db
         public string Name { get; set; }
         public string Descript { get; set; }
         public int DocumentTypeId { get; set; }
-        public Nullable<int> PrivacyTypeId { get; set; }
         public int DocumentStatusId { get; set; }
         public string Number { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -43,7 +42,6 @@ namespace MyDiplom.db
         public virtual ICollection<Approval> Approval { get; set; }
         public virtual DocumentStatus DocumentStatus { get; set; }
         public virtual DocumentType DocumentType { get; set; }
-        public virtual PrivacyType PrivacyType { get; set; }
         public virtual User User { get; set; }
     }
 }

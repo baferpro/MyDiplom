@@ -5,36 +5,35 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="026a41127e8e4a45b27212b50ea72478" Name="Diagram1">
-        <EntityTypeShape EntityType="DiplomaFaustModel.Action" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.ActionType" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.ActionTypeRole" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Affiliation" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Approval" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Document" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.DocumentStatus" Width="1.5" PointX="9" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.DocumentType" Width="1.5" PointX="9" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Post" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.PrivacyType" Width="1.5" PointX="9" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Right" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomaFaustModel.User" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Action_ActionType" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Action_Document" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Action_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_ActionTypeRole_ActionType" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_RightRole_Right" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_RightRole_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Inscript_Document" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Inscript_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Approval_Document" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Approval_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Document_DocumentStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Document_DocumentType" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Document_PrivacyType" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_Document_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_User_Post" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomaFaustModel.FK_User_Role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Action" Width="1.5" PointX="10.5" PointY="8.375" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.ActionType" Width="1.5" PointX="3.75" PointY="14.875" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.ActionTypeRole" Width="1.5" PointX="6" PointY="8.5" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Affiliation" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Approval" Width="1.5" PointX="5.25" PointY="11.625" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Document" Width="1.5" PointX="8.25" PointY="7.5" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.DocumentStatus" Width="1.5" PointX="6" PointY="2.625" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.DocumentType" Width="1.5" PointX="6" PointY="15" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Post" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.PrivacyType" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Right" Width="1.5" PointX="3.75" PointY="2.5" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.Role" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DiplomaFaustModel.User" Width="1.5" PointX="3" PointY="7.625" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Action_ActionType" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Action_Document" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Action_User" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_ActionTypeRole_ActionType" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_RightRole_Right" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_RightRole_Role" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Inscript_Document" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Inscript_User" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Approval_Document" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Approval_User" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Document_DocumentStatus" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Document_DocumentType" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_Document_User" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_User_Post" />
+        <AssociationConnector Association="DiplomaFaustModel.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
