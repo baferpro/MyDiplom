@@ -86,7 +86,8 @@
                                         Height="50"
                                         x:Name="TBNumberDocument"
                                         HorizontalContentAlignment="Left"
-                                        Padding="20, 0"/>
+                                        Padding="20, 0"
+                                        TextChanged="TBNumberDocument_TextChanged"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0, 14, 0, 0"
@@ -100,7 +101,8 @@
                                         Height="50"
                                         x:Name="TBName"
                                         HorizontalContentAlignment="Left"
-                                        Padding="20, 0"/>
+                                        Padding="20, 0"
+                                        TextChanged="TBName_TextChanged"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0, 14, 0, 0"
@@ -140,7 +142,8 @@
                                         FontSize="18"/>
                             <DatePicker x:Name="DPCreateDate"
                                         FontFamily="Roboto"
-                                        FontSize="18"/>
+                                        FontSize="18"
+                                        SelectedDateChanged="DPCreateDate_SelectedDateChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

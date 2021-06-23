@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 
 namespace MyDiplom.Windows
@@ -22,7 +23,6 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class AddNewDocument : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         string FileName = null;
         int gUserId;
         MainWindow gPrewWindow;
@@ -31,15 +31,15 @@ namespace MyDiplom.Windows
             gUserId = lUserId;
             gPrewWindow = lPrewWindow;
             InitializeComponent();
-            string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
-            string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
+            string FirstName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
+            string MiddleName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
             MiddleName = MiddleName[0] + ".";
-            string LastName = db.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
+            string LastName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
             if (LastName.Length > 0)
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            List<User> list = db.User.ToList();
+            List<User> list = myDB.User.ToList();
             for(int i = 0; i < list.Count(); i++)
             {
                 string FIO = list[i].FirstName + " " + list[i].MiddleName[0] + "." + list[i].LastName[0] + ".";
@@ -47,7 +47,7 @@ namespace MyDiplom.Windows
             }
             CBAuthor.SelectedIndex = 0;
             
-            CBType.ItemsSource = db.DocumentType.ToList();
+            CBType.ItemsSource = myDB.DocumentType.ToList();
             CBType.SelectedIndex = 0;
             CBType.DisplayMemberPath = "Name";
         }
@@ -60,6 +60,7 @@ namespace MyDiplom.Windows
 
         private void BTNLoadFile_Click(object sender, RoutedEventArgs e)
         {
+            BTNLoadFile.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
@@ -70,7 +71,30 @@ namespace MyDiplom.Windows
 
         private void BTNSave_Click(object sender, RoutedEventArgs e)
         {
-            int NewDocumentId = db.Document.Add(new Document
+            bool error = false;
+            if (TBNumberDocument.Text.Equals(""))
+            {
+                TBNumberDocument.BorderBrush = new SolidColorBrush(Colors.Red);
+                error = true;
+            }
+            if (TBName.Text.Equals(""))
+            {
+                TBName.BorderBrush = new SolidColorBrush(Colors.Red);
+                error = true;
+            }
+            if(DPCreateDate.SelectedDate == null)
+            {
+                DPCreateDate.BorderBrush = new SolidColorBrush(Colors.Red);
+                error = true;
+            }
+            if (FileName == null)
+            {
+                BTNLoadFile.BorderBrush = new SolidColorBrush(Colors.Red);
+                error = true;
+            }
+            if (error)
+                return;
+            int NewDocumentId = myDB.Document.Add(new Document
             {
                 Number = TBNumberDocument.Text,
                 Name = TBName.Text,
@@ -83,12 +107,13 @@ namespace MyDiplom.Windows
                 IsUrgent = CBIsUrgent.IsChecked.Value,
                 File = File.ReadAllBytes(FileName)
             }).Id;
-            db.Affiliation.Add(new Affiliation
+            myDB.Affiliation.Add(new Affiliation
             {
                 UserId = gUserId,
                 DocumentId = NewDocumentId
             });
-            db.SaveChanges();
+            myDB.SaveChanges();
+            MessageBox.Show("Новый документ был успешно добавлен!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }
@@ -97,6 +122,21 @@ namespace MyDiplom.Windows
         {
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
+        }
+
+        private void TBNumberDocument_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TBNumberDocument.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
+        }
+
+        private void TBName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TBName.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
+        }
+
+        private void DPCreateDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DPCreateDate.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
         }
     }
 }

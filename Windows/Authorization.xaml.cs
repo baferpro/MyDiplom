@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 using MyDiplom.Windows;
 
@@ -21,7 +22,6 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class Authorization : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         public Authorization()
         {
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace MyDiplom.Windows
 
         private void BTNEnter_Click(object sender, RoutedEventArgs e)
         {
-            IEnumerable<User> list = db.User.ToList();
+            IEnumerable<User> list = myDB.User.ToList();
             int loginsCount = list.Where(i => i.Login.Equals(TBLogin.Text)).Count();
             if(loginsCount == 1)
             {
@@ -61,13 +61,11 @@ namespace MyDiplom.Windows
 
         private void TBLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             BRDLogin.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
         }
 
         private void PBPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-
             BRDPassword.BorderBrush = new SolidColorBrush(Color.FromRgb(7, 19, 81));
         }
     }

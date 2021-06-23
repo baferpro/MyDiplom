@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 
 namespace MyDiplom.Windows
@@ -20,7 +21,6 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class AddApprovalDocument : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         int gUserId;
         int gDocumentId;
         MainWindow gPrewWindow;
@@ -31,27 +31,27 @@ namespace MyDiplom.Windows
             gUserId = lUserId;
             gPrewWindow = lPrewWindow;
             InitializeComponent();
-            string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
-            string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
+            string FirstName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
+            string MiddleName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
             MiddleName = MiddleName[0] + ".";
-            string LastName = db.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
+            string LastName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
             if (LastName.Length > 0)
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            var document = db.Document.Where(i => i.Id == lDocumentId).FirstOrDefault();
+            var document = myDB.Document.Where(i => i.Id == lDocumentId).FirstOrDefault();
             TBNumber.Content = document.Number;
             TBDescript.Text = document.Descript;
 
-            var documentType = db.DocumentType.Where(i => i.Id == document.DocumentTypeId).FirstOrDefault();
+            var documentType = myDB.DocumentType.Where(i => i.Id == document.DocumentTypeId).FirstOrDefault();
             TBDocumentType.Content = documentType.Name;
 
-            var author = db.User.Where(i => i.Id == document.AuthorId).FirstOrDefault();
+            var author = myDB.User.Where(i => i.Id == document.AuthorId).FirstOrDefault();
             TBAuthor.Content = author.FirstName + " " + author.MiddleName[0] + "." + author.LastName[0] + ".";
 
             TBCreateDate.Content = document.CreateDate.ToString();
 
-            var status = db.DocumentStatus.Where(i => i.Id == document.DocumentStatusId).FirstOrDefault();
+            var status = myDB.DocumentStatus.Where(i => i.Id == document.DocumentStatusId).FirstOrDefault();
             TBStatus.Content = status.Name;
 
             if (document.IsImportant)
@@ -72,7 +72,7 @@ namespace MyDiplom.Windows
             }
             else
             {
-                var list = db.User.ToList();
+                var list = myDB.User.ToList();
                 LVMain.ItemsSource = list;
                 Check();
             }
@@ -88,15 +88,16 @@ namespace MyDiplom.Windows
         {
             for (int i = 0; i < gNeedSave.Count; i++)
             {
-                db.Approval.Add(new Approval
+                myDB.Approval.Add(new Approval
                 {
                     DocumentId = gDocumentId,
                     UserId = gNeedSave[i].Id
                 });
             }
-            var document = db.Document.Where(i => i.Id == gDocumentId).FirstOrDefault();
+            var document = myDB.Document.Where(i => i.Id == gDocumentId).FirstOrDefault();
             document.DocumentStatusId = 2;
-            db.SaveChanges();
+            myDB.SaveChanges();
+            MessageBox.Show("Документ успешно отправлен на согласование!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }

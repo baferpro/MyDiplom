@@ -112,7 +112,21 @@
                                         Width="338"
                                         Height="50" 
                                         x:Name="CBAuthor"
-                                        FontSize="18"/>
+                                        FontSize="18">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}.{2}.">
+                                                    <Binding Path="FirstName"/>
+                                                    <Binding Path="MiddleName[0]"/>
+                                                    <Binding Path="LastName[0]"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0, 107, 212, 0" 

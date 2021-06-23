@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 
 namespace MyDiplom.Windows
@@ -20,7 +21,6 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class EditApprovalDocument : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         int gUserId;
         List<Approval> needSave = new List<Approval>();
         MainWindow gPrewWindow;
@@ -29,15 +29,15 @@ namespace MyDiplom.Windows
             gUserId = lUserId;
             gPrewWindow = lPrewWindow;
             InitializeComponent();
-            string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
-            string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
+            string FirstName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
+            string MiddleName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
             MiddleName = MiddleName[0] + ".";
-            string LastName = db.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
+            string LastName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
             if (LastName.Length > 0)
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            LVMain.ItemsSource = db.Approval.Where(i => i.UserId == gUserId).ToList();
+            LVMain.ItemsSource = myDB.Approval.Where(i => i.UserId == gUserId).ToList();
         }
 
         private void BTNSave_Click(object sender, RoutedEventArgs e)
@@ -45,14 +45,15 @@ namespace MyDiplom.Windows
             for (int i = 0; i < needSave.Count; i++)
             {
                 int documentId = needSave[i].DocumentId;
-                db.Approval.Remove(needSave[i]);
-                if(db.Approval.Where(g => g.DocumentId == documentId).Count() == 0)
+                myDB.Approval.Remove(needSave[i]);
+                if(myDB.Approval.Where(g => g.DocumentId == documentId).Count() == 0)
                 {
-                    var document = db.Document.Where(g => g.Id == documentId).FirstOrDefault();
+                    var document = myDB.Document.Where(g => g.Id == documentId).FirstOrDefault();
                     document.DocumentStatusId = 3;
                 }
             }
-            db.SaveChanges();
+            myDB.SaveChanges();
+            MessageBox.Show("Вы успешно согласовали выбранные документы!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }

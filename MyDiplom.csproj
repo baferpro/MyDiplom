@@ -80,6 +80,7 @@
     <Compile Include="db\Approval.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\dbClass.cs" />
     <Compile Include="db\Document.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

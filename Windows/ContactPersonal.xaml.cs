@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 
 namespace MyDiplom.Windows
@@ -20,16 +21,15 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class ContactPersonal : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         MainWindow gPrewWindow;
         public ContactPersonal(int lUserId, MainWindow lPrewWindow)
         {
             gPrewWindow = lPrewWindow;
             InitializeComponent();
-            string FirstName = db.User.Where(i => i.Id == lUserId).Select(i => i.FirstName).First();
-            string MiddleName = db.User.Where(i => i.Id == lUserId).Select(i => i.MiddleName).First();
+            string FirstName = myDB.User.Where(i => i.Id == lUserId).Select(i => i.FirstName).First();
+            string MiddleName = myDB.User.Where(i => i.Id == lUserId).Select(i => i.MiddleName).First();
             MiddleName = MiddleName[0] + ".";
-            string LastName = db.User.Where(i => i.Id == lUserId).Select(i => i.LastName).First();
+            string LastName = myDB.User.Where(i => i.Id == lUserId).Select(i => i.LastName).First();
             if (LastName.Length > 0)
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
@@ -100,7 +100,7 @@ namespace MyDiplom.Windows
         }
         public void Filter()
         {
-            var list = db.User.ToList();
+            var list = myDB.User.ToList();
 
             if (TBFioFilter.Text.Length > 0 && TBFioFilter.Text.ToLower().Equals("ФИО".ToLower()) == false)
                 list = list.Where(i => i.FirstName.ToLower().Contains(TBFioFilter.Text.ToLower()) || i.MiddleName.ToLower().Contains(TBFioFilter.Text.ToLower()) || i.LastName.ToLower().Contains(TBFioFilter.Text.ToLower())).ToList();

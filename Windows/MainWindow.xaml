@@ -13,7 +13,8 @@
         MinWidth="1400"
         MaxWidth="1480"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
+        WindowStyle="None" Activated="Window_Activated"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12.21*"/>
@@ -192,6 +193,7 @@
                         </ListView.ItemsPanel>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Value="Green" Property="Background" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -215,7 +217,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="№ "
                                                            Style="{StaticResource ForLabel}"/>
-                                            <Label Content="{Binding Document.Number}"
+                                            <Label Content="{Binding document.Number}"
                                                            Style="{StaticResource ForLabel}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
@@ -223,7 +225,7 @@
                                             <Label Content="Тип: "
                                                            Style="{StaticResource ForLabel}"
                                                            FontSize="18"/>
-                                            <Label Content="{Binding Document.DocumentType.Name}"
+                                            <Label Content="{Binding document.DocumentType.Name}"
                                                            Style="{StaticResource ForLabel}"
                                                            FontSize="18"/>
                                         </StackPanel>
@@ -236,19 +238,19 @@
                                             <Label  Content="Автор: "
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
-                                            <Label  Content="{Binding Document.User.FirstName}"
+                                            <Label  Content="{Binding document.User.FirstName}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
                                             <Label  Content=" "
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
-                                            <Label  Content="{Binding Document.User.MiddleName[0]}"
+                                            <Label  Content="{Binding document.User.MiddleName[0]}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
                                             <Label  Content="."
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
-                                            <Label  Content="{Binding Document.User.LastName[0]}"
+                                            <Label  Content="{Binding document.User.LastName[0]}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
                                             <Label  Content="."
@@ -260,7 +262,7 @@
                                             <Label  Content="Дата создания: "
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
-                                            <Label  Content="{Binding Document.CreateDate}"
+                                            <Label  Content="{Binding document.CreateDate}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
                                         </StackPanel>
@@ -269,20 +271,20 @@
                                             <Label  Content="Стутус: "
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
-                                            <Label  Content="{Binding Document.DocumentStatus.Name}"
+                                            <Label  Content="{Binding document.DocumentStatus.Name}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
                                                     Margin="0, 12, 0, 0">
                                             <Label  Content="СРОЧНО!"
-                                                    IsEnabled="{Binding Document.IsImportant}"
+                                                    Visibility="{Binding IsImportant}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"
                                                     Foreground="#FF0000"
                                                     Margin="0, 0, 17, 0"/>
                                             <Label  Content="ВАЖНО!"
-                                                    IsEnabled="{Binding Document.IsUrgent}"
+                                                    Visibility="{Binding IsUrgent}"
                                                     Style="{StaticResource ForLabel}"
                                                     FontSize="18"
                                                     Foreground="#000000"/>

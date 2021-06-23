@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using static MyDiplom.db.dbClass;
 using MyDiplom.db;
 
 namespace MyDiplom.Windows
@@ -22,7 +23,6 @@ namespace MyDiplom.Windows
     /// </summary>
     public partial class EditDocument : Window
     {
-        public static MyDBEntities db = new MyDBEntities();
         int gDocumentId;
         int gUserId;
         string FileName = null;
@@ -33,29 +33,23 @@ namespace MyDiplom.Windows
             gUserId = lUserId;
             gPrewWindow = lPrewWindow;
             InitializeComponent();
-            string FirstName = db.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
-            string MiddleName = db.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
+            string FirstName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.FirstName).First();
+            string MiddleName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.MiddleName).First();
             MiddleName = MiddleName[0] + ".";
-            string LastName = db.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
+            string LastName = myDB.User.Where(i => i.Id == gUserId).Select(i => i.LastName).First();
             if (LastName.Length > 0)
                 LastName = LastName[0] + ".";
             LBLFio.Content = $"{FirstName} {MiddleName}{LastName}";
 
-            List<User> list = db.User.ToList();
-            for (int i = 0; i < list.Count(); i++)
-            {
-                string FIO = list[i].FirstName + " " + list[i].MiddleName[0] + "." + list[i].LastName[0] + ".";
-                CBAuthor.Items.Add(FIO);
-            }
-            CBAuthor.SelectedIndex = 0;
+            CBAuthor.ItemsSource = myDB.User.ToList();
 
-            CBType.ItemsSource = db.DocumentType.ToList();
+            CBType.ItemsSource = myDB.DocumentType.ToList();
             CBType.DisplayMemberPath = "Name";
 
-            CBStatus.ItemsSource = db.DocumentStatus.ToList();
+            CBStatus.ItemsSource = myDB.DocumentStatus.ToList();
             CBStatus.DisplayMemberPath = "Name";
 
-            var document = db.Document.Where(i => i.Id == lDocumentId).FirstOrDefault();
+            var document = myDB.Document.Where(i => i.Id == lDocumentId).FirstOrDefault();
             TBNumberDocument.Text = document.Number;
             TBName.Text = document.Name;
             CBAuthor.SelectedIndex = document.AuthorId-1;
@@ -91,10 +85,11 @@ namespace MyDiplom.Windows
 
         private void BTNSave_Click(object sender, RoutedEventArgs e)
         {
-            var document = db.Document.Single(i => i.Id == gDocumentId);
+            var document = myDB.Document.Single(i => i.Id == gDocumentId);
             document.Number = TBNumberDocument.Text;
             document.Name = TBName.Text;
-            document.AuthorId = CBAuthor.SelectedIndex + 1;
+            var _author = CBAuthor.SelectedItem as User;
+            document.AuthorId = _author.Id;
             document.DocumentTypeId = CBType.SelectedIndex + 1;
             document.CreateDate = DPCreateDate.SelectedDate.Value;
             document.DocumentStatusId = CBStatus.SelectedIndex + 1;
@@ -102,10 +97,9 @@ namespace MyDiplom.Windows
             document.IsImportant = CBIsImportant.IsChecked.Value;
             document.IsUrgent = CBIsUrgent.IsChecked.Value;
             if(FileName != null && FileName.Length>0)
-            {
-                document.File = File.ReadAllBytes(FileName);
-            }
-            db.SaveChanges();
+                if(File.Exists(FileName))
+                    document.File = File.ReadAllBytes(FileName);
+            myDB.SaveChanges();
             gPrewWindow.Visibility = Visibility.Visible;
             this.Close();
         }
